@@ -11905,8 +11905,7 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Python-Task-Optimisation-and-Interoperability---Subprocess-Module">Python Task Optimisation and Interoperability - Subprocess Module<a class="anchor-link" href="#Python-Task-Optimisation-and-Interoperability---Subprocess-Module">&#182;</a></h1><p>by Carlos Rodrigues
-Bio21</p>
+<h1 id="Python-Task-Optimisation-and-Interoperability---Subprocess-Module">Python Task Optimisation and Interoperability - Subprocess Module<a class="anchor-link" href="#Python-Task-Optimisation-and-Interoperability---Subprocess-Module">&#182;</a></h1><p>by Carlos Rodrigues</p>
 <p><em>@carlosmr12</em></p>
 
 </div>
@@ -11951,7 +11950,7 @@ Bio21</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Task">Task<a class="anchor-link" href="#Task">&#182;</a></h3><p>Remove all unnecessary files from a specific folder recursively except for structure (.pdb) and sequence (.fasta) files.</p>
+<h3 id="Task-1">Task 1<a class="anchor-link" href="#Task-1">&#182;</a></h3><p>Remove all unnecessary files from a specific folder recursively except for structure (.pdb) and sequence (.fasta) files.</p>
 <p>Structure files are defined as:
 <strong><em>[four-letter-code] </em> chain <em> [one-letter-code].pdb</em></strong> - 1u9a_chain_A.pdb</p>
 <p>Sequence files are defined as:
@@ -11962,7 +11961,7 @@ Bio21</p>
 </div></section></section><section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># IMPORT PACKAGES</span>
@@ -11977,18 +11976,15 @@ Bio21</p>
     <span class="c1"># READS ORIGINAL SIZE OF THE DATA</span>
     <span class="n">original_size</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;du -sh </span><span class="si">{folder}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">original_size</span> <span class="o">=</span> <span class="n">original_size</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span>
-    
     <span class="c1"># LIST ALL FOLDERS IN DATA folder</span>
     <span class="n">output_ls</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;ls </span><span class="si">{folder}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="c1"># TRANSFORM TEXT OUTPUT FROM output_ls TO A PYTHON LIST</span>
     <span class="n">parsed_output_ls</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">output_ls</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
-    
     <span class="c1"># REMOVE ALL FILES EXCEPT FOR FILES WITH THE FOLLOWING NAME PDBCODE_chain_CHAIN.fasta and PDBCODE_chain_CHAIN.pdb</span>
     <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">parsed_output_ls</span><span class="p">:</span>
         <span class="n">pdb_code</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">chain</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>    
         <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;find </span><span class="si">{folder}</span><span class="s2">/</span><span class="si">{pdb_code}</span><span class="s2">_</span><span class="si">{chain}</span><span class="s2"> ! </span><span class="se">\\</span><span class="s2">( -name &#39;</span><span class="si">{pdb_code}</span><span class="s2">_chain_</span><span class="si">{chain}</span><span class="s2">.fasta&#39; -o -name &#39;</span><span class="si">{pdb_code}</span><span class="s2">_chain_</span><span class="si">{chain}</span><span class="s2">.pdb&#39; </span><span class="se">\\</span><span class="s2">) -type f -exec rm -f {{}} +&quot;</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    
     <span class="c1"># READS SIZE OF folder AFTER REMOVING UNWANTED FILES</span>
     <span class="n">final_size</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;du -sh </span><span class="si">{folder}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">final_size</span> <span class="o">=</span> <span class="n">final_size</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span>
@@ -11996,7 +11992,7 @@ Bio21</p>
     <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Before: </span><span class="si">{original_size}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;After: </span><span class="si">{final_size}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">shrinking_percentage</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mi">100</span><span class="o">-</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">final_size</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">original_size</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span><span class="mi">3</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Total folder has now </span><span class="si">{shrinking_percentage}% le</span><span class="s2">ss data&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Folder has now </span><span class="si">{shrinking_percentage}% le</span><span class="s2">ss data&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">True</span>
 </pre></div>
 
@@ -12007,7 +12003,7 @@ Bio21</p>
 </div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">organiser</span><span class="p">(</span><span class="n">DATA_FOLDER</span><span class="p">)</span>
@@ -12027,18 +12023,18 @@ Bio21</p>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Before: 8.7M	/home/carlos/Documents/resbazapp-2019/data
+<pre>Before: 128M	/home/chmrodrigues/Documents/resbazapp/data
 
-After: 8.7M	/home/carlos/Documents/resbazapp-2019/data
+After: 8.5M	/home/chmrodrigues/Documents/resbazapp/data
 
-Total folder has now 0.0% less data
+Total folder has now 93.359% less data
 </pre>
 </div>
 </div>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[45]:</div>
+<div class="prompt output_prompt">Out[4]:</div>
 
 
 
@@ -12057,7 +12053,7 @@ Total folder has now 0.0% less data
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Task">Task<a class="anchor-link" href="#Task">&#182;</a></h3><p>Plot size of files to identify possibly the "biggest protein".</p>
+<h3 id="Task-2">Task 2<a class="anchor-link" href="#Task-2">&#182;</a></h3><p>Plot size of files to identify possibly the "biggest protein".</p>
 <p><a href="https://seaborn.pydata.org/">Seaborn</a></p>
 
 </div>
@@ -12065,7 +12061,7 @@ Total folder has now 0.0% less data
 </div></section></section><section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[60]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># IMPORT PACKAGES</span>
@@ -12103,7 +12099,7 @@ Total folder has now 0.0% less data
 </div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[61]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data_size</span><span class="p">(</span><span class="n">DATA_FOLDER</span><span class="p">)</span>
@@ -12119,7 +12115,7 @@ Total folder has now 0.0% less data
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[61]:</div>
+<div class="prompt output_prompt">Out[6]:</div>
 
 
 
@@ -12148,10 +12144,10 @@ Total folder has now 0.0% less data
 </div>
 </div>
 
-</div></section></section><section><section>
+</div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[48]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 2uzx_chain_B.fasta</span>
@@ -12167,7 +12163,7 @@ Total folder has now 0.0% less data
 <span class="s2">    RLTICGWDFGFRRNNKFDLKKTRVLLGNESCTLTLSESTMNTLKCTVGPFNMS</span><span class="se">\</span>
 <span class="s2">    IIISNGHGTTQYSTFSYVDPV&quot;</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">top1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Sequence length: {len(top1)}&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12184,7 +12180,7 @@ Total folder has now 0.0% less data
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>587
+<pre>Sequence length: 587
 </pre>
 </div>
 </div>
@@ -12192,10 +12188,10 @@ Total folder has now 0.0% less data
 </div>
 </div>
 
-</div></section></section><section><section>
+</div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 2x2u_chain_A.fasta</span>
@@ -12205,7 +12201,7 @@ Total folder has now 0.0% less data
 <span class="s2">    LPVQFLCPQISVAYRLLEGEGLPFRSAPDSLEVSTRWALDREQREKYELVAVCT</span><span class="se">\</span>
 <span class="s2">    VHREEVVMVPFPVTVYDEDDSAPEFEN&quot;</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bottom1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Sequence length: {len(bottom1)}&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12222,7 +12218,7 @@ Total folder has now 0.0% less data
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>252
+<pre>Sequence length: 252
 </pre>
 </div>
 </div>
@@ -12230,12 +12226,21 @@ Total folder has now 0.0% less data
 </div>
 </div>
 
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="two_proteins.png"></p>
+
+</div>
+</div>
 </div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Task">Task<a class="anchor-link" href="#Task">&#182;</a></h3><p>Run R script to calculation the deformation energy of a 3D structure using the following parameters. The script is under the folder <strong>src</strong>.</p>
+<h3 id="Task-3">Task 3<a class="anchor-link" href="#Task-3">&#182;</a></h3><p>Run R script to calculation the deformation energy of a 3D structure using the following parameters. The script is under the folder <strong>src</strong>.</p>
 
 <pre><code>Rscript src/run_deformation.R protein_structure.pdb A 187</code></pre>
 
@@ -12244,7 +12249,7 @@ Total folder has now 0.0% less data
 </div></section></section><section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[50]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">CURRENT_FOLDER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
@@ -12262,16 +12267,37 @@ Total folder has now 0.0% less data
 </div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">run_deformation</span><span class="p">(</span><span class="s2">&quot;data/1a9u_A/1a9u_chain_A.pdb&quot;</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="mi">351</span><span class="p">)</span>
-<span class="n">run_deformation</span><span class="p">(</span><span class="s2">&quot;data/1a9u_A/1a9u_chain_A.pdb&quot;</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="mi">349</span><span class="p">)</span>
-<span class="n">run_deformation</span><span class="p">(</span><span class="s2">&quot;data/1a9u_A/1a9u_chain_A.pdb&quot;</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
-<span class="n">run_deformation</span><span class="p">(</span><span class="s2">&quot;data/1a9u_A/1a9u_chain_A.pdb&quot;</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="mi">51</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">run_deformation</span><span class="p">(</span><span class="s2">&quot;data/1a9u_A/1a9u_chain_A.pdb&quot;</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="mi">351</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">run_deformation</span><span class="p">(</span><span class="s2">&quot;data/1a9u_A/1a9u_chain_A.pdb&quot;</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="mi">349</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">run_deformation</span><span class="p">(</span><span class="s2">&quot;data/1a9u_A/1a9u_chain_A.pdb&quot;</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">run_deformation</span><span class="p">(</span><span class="s2">&quot;data/1a9u_A/1a9u_chain_A.pdb&quot;</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="mi">51</span><span class="p">))</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>23.64189
+16.97021
+8.752666
+11.64425
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
